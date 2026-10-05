@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDatabase, toSafeUser, UserRow } from "@/lib/db";
-import { comparePassword, generateToken, TOKEN_COOKIE } from "@/lib/auth";
+import { getDatabase, toSafeUser, UserRow } from "../../../../lib/db";
+import { comparePassword, generateToken, TOKEN_COOKIE } from "../../../../lib/auth";
 
 export async function POST(request: NextRequest) {
   try {

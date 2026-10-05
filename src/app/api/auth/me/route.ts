@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSessionUser } from "@/lib/auth";
-import { getDatabase } from "@/lib/db";
+import { getSessionUser } from "../../../../lib/auth";
+import { getDatabase } from "../../../../lib/db";
 
 export async function GET() {
   const user = getSessionUser();

@@ -18,9 +18,9 @@ import {
   Camera,
   Image as ImageIcon,
 } from "lucide-react";
-import { VolumeInfo, ChapterMeta } from "@/types/novel";
-import { NovelStats } from "@/lib/stats";
-import { useAuth } from "@/context/AuthContext";
+import { VolumeInfo, ChapterMeta } from "../types/novel";
+import { NovelStats } from "../lib/stats";
+import { useAuth } from "../context/AuthContext";
 import ResumeButton from "./ResumeButton";
 import ChapterList from "./ChapterList";
 

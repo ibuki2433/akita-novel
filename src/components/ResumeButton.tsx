@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { Play, Bookmark, ArrowRight } from "lucide-react";
-import { useReader } from "@/context/ReaderContext";
-import { ChapterMeta } from "@/types/novel";
+import { useReader } from "../context/ReaderContext";
+import { ChapterMeta } from "../types/novel";
 
 export default function ResumeButton({
   chapters,

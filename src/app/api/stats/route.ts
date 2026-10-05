@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getStats, recordView } from "@/lib/stats";
+import { getStats, recordView } from "../../../lib/stats";
 
 export async function GET(request: NextRequest) {
   const visitorId = request.nextUrl.searchParams.get("visitorId") || undefined;

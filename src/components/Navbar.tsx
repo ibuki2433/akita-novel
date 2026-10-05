@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { BookOpen, Moon, Sun, Coffee, PenSquare, Eye, User, LogIn, UserPlus, ShieldCheck } from "lucide-react";
-import { useReader, Theme } from "@/context/ReaderContext";
-import { useAuth } from "@/context/AuthContext";
+import { useReader, Theme } from "../context/ReaderContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const { theme, setTheme } = useReader();

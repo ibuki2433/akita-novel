@@ -3,7 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
-import { ChapterMeta, ChapterData, VolumeInfo, VolumeId } from "@/types/novel";
+import { ChapterMeta, ChapterData, VolumeInfo, VolumeId } from "../types/novel";
 
 const CHAPTERS_DIRECTORY = path.join(process.cwd(), "content", "chapters");
 

@@ -22,7 +22,7 @@ import {
   KeyRound,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 const CHARACTER_PALETTE = [
   { name: "อิสึกิ", color: "ฟ้า", cls: "speech-itsuki", sample: "อิสึกิ : \"...\"" },

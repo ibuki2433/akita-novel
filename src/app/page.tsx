@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import NovelShowcase from "../components/NovelShowcase";
-import { getVolumes, getAllChapters } from "@/lib/novel";
+import { getVolumes, getAllChapters } from "../lib/novel";
 
 export default function HomePage() {
   const volumes = getVolumes();

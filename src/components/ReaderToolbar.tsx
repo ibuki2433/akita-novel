@@ -15,8 +15,8 @@ import {
   BookOpen,
   Layers,
 } from "lucide-react";
-import { useReader, Theme, FontFamily } from "@/context/ReaderContext";
-import { ChapterMeta } from "@/types/novel";
+import { useReader, Theme, FontFamily } from "../context/ReaderContext";
+import { ChapterMeta } from "../types/novel";
 
 interface ReaderToolbarProps {
   currentChapter: ChapterMeta;

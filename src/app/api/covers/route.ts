@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { revalidatePath } from "next/cache";
-import { getSessionUser } from "@/lib/auth";
+import { getSessionUser } from "../../../lib/auth";
 
 const COVERS_FILE = path.join(process.cwd(), "data", "covers.json");
 const COVERS_PUBLIC_DIR = path.join(process.cwd(), "public", "covers");

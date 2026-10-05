@@ -17,9 +17,9 @@ import {
   UserPlus,
   CheckCircle2,
 } from "lucide-react";
-import { ChapterData, ChapterMeta } from "@/types/novel";
-import { useReader } from "@/context/ReaderContext";
-import { useAuth } from "@/context/AuthContext";
+import { ChapterData, ChapterMeta } from "../types/novel";
+import { useReader } from "../context/ReaderContext";
+import { useAuth } from "../context/AuthContext";
 import ReaderToolbar from "./ReaderToolbar";
 
 interface ReaderViewProps {

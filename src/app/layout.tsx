@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ReaderProvider } from "@/context/ReaderContext";
-import { AuthProvider } from "@/context/AuthContext";
+import { ReaderProvider } from "../context/ReaderContext";
+import { AuthProvider } from "../context/AuthContext";
 
 export const metadata: Metadata = {
   title: "จักรวาลอาคิตะ (Akita Universe) | เว็บอ่านนิยายออนไลน์",

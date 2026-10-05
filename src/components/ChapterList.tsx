@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Search, ArrowUpDown, Clock, CheckCircle2, ChevronRight, BookMarked, Eye, Lock } from "lucide-react";
-import { ChapterMeta } from "@/types/novel";
-import { useReader } from "@/context/ReaderContext";
-import { useAuth } from "@/context/AuthContext";
+import { ChapterMeta } from "../types/novel";
+import { useReader } from "../context/ReaderContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function ChapterList({
   chapters,

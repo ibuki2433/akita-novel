@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { UserSafe } from "@/lib/db";
+import { UserSafe } from "../lib/db";
 
 interface AuthContextType {
   user: UserSafe | null;
