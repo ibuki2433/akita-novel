@@ -3,17 +3,17 @@ import { getSessionUser } from "../../../../lib/auth";
 import { getDatabase } from "../../../../lib/db";
 
 export async function GET() {
-  const user = getSessionUser();
+  const user = await getSessionUser();
   if (!user) {
     return NextResponse.json({ authenticated: false, user: null });
   }
 
-  const db = getDatabase();
-  const bookmarks = db
+  const db = await getDatabase();
+  const bookmarks = await db
     .prepare("SELECT * FROM user_bookmarks WHERE user_id = ? ORDER BY updated_at DESC")
     .all(user.id);
 
-  const history = db
+  const history = await db
     .prepare("SELECT * FROM user_reading_history WHERE user_id = ? ORDER BY read_at DESC LIMIT 10")
     .all(user.id);
 
@@ -27,7 +27,7 @@ export async function GET() {
 
 // Update bookmark or record reading history
 export async function POST(request: NextRequest) {
-  const user = getSessionUser();
+  const user = await getSessionUser();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -40,10 +40,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing parameters" }, { status: 400 });
     }
 
-    const db = getDatabase();
+    const db = await getDatabase();
 
     // Upsert bookmark
-    db.prepare(`
+    await db.prepare(`
       INSERT INTO user_bookmarks (user_id, chapter_slug, volume_id, scroll_y, updated_at)
       VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
       ON CONFLICT(user_id, volume_id) DO UPDATE SET
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     `).run(user.id, chapterSlug, volumeId, scrollY || 0);
 
     // Record reading history
-    db.prepare(`
+    await db.prepare(`
       INSERT INTO user_reading_history (user_id, chapter_slug, volume_id)
       VALUES (?, ?, ?)
     `).run(user.id, chapterSlug, volumeId);

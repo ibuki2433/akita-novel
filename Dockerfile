@@ -1,12 +1,13 @@
 # Base node image
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 # Install build dependencies for better-sqlite3 native bindings
 FROM base AS deps
 RUN apk add --no-cache libc6-compat python3 make g++
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+COPY .npmrc ./
+RUN npm ci --include=dev
 
 # Build application
 FROM base AS builder

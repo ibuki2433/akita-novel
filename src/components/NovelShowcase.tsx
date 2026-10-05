@@ -35,7 +35,7 @@ export default function NovelShowcase({ volumes, allChapters }: NovelShowcasePro
     !isAuthLoading &&
       isAuthenticated &&
       user &&
-      (user.role === "admin" || user.username.toLowerCase() === "ibuki")
+      (user.role === "admin")
   );
 
   const [selectedVolumeId, setSelectedVolumeId] = useState<string>("special");

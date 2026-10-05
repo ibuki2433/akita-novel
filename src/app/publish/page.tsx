@@ -60,7 +60,7 @@ export default function PublishPage() {
   const isAdmin = Boolean(
     isAuthenticated &&
       user &&
-      (user.role === "admin" || user.username.toLowerCase() === "ibuki")
+      (user.role === "admin")
   );
 
   // Admin Login form states for locked view

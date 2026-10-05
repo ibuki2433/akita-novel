@@ -3,12 +3,18 @@ services:
     name: novel-reader-web
     env: node
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
-        value: 20.14.0
+        value: 22.19.0
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 3000
+      - key: TURSO_DATABASE_URL
+        sync: false
+      - key: TURSO_AUTH_TOKEN
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false

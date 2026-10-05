@@ -1,5 +1,15 @@
 # 📖 เว็บแอปพลิเคชันสำหรับอ่านนิยาย (Novel Reader Web)
 
+## Deploy บน Render
+
+- ใช้ Node.js `22.19.0` (dependency `better-sqlite3` ต้องใช้ Node 22 ขึ้นไป)
+- Build Command: `npm ci --include=dev && npm run build`
+- Start Command: `npm start`
+- ตั้ง `NODE_ENV=production` ได้ โดย `.npmrc` จะให้ติดตั้งเครื่องมือ build รวมถึง Tailwind, PostCSS และ TypeScript ด้วย
+- `.npmrc` ปิด install scripts เพื่อใช้ native binary ที่มากับ `better-sqlite3` แทน fallback `node-gyp rebuild`; `npm run build` และ `npm start` ยังทำงานตามปกติ หากเพิ่ม dependency ที่ต้องใช้ install script ให้ทบทวนค่านี้ด้วย
+- ถ้าสร้าง service ผ่าน Dashboard ให้แก้ Environment `NODE_VERSION` เป็น `22.19.0` และ Build Command ให้ตรงกับข้างบนด้วย เพราะการแก้ `render.yaml` อย่างเดียวอาจไม่เปลี่ยนค่าของ service ที่สร้างไว้แล้ว
+- หลัง push การแก้ไข ให้เลือก Clear build cache & deploy ใน Render
+
 เว็บอ่านนิยายออนไลน์โมเดิร์น พัฒนาด้วย **Next.js (App Router)**, **React**, **TypeScript** และ **Tailwind CSS** ออกแบบมาเพื่อประสบการณ์การอ่านที่สบายตา รองรับทั้งบนคอมพิวเตอร์และมือถือ
 
 ---

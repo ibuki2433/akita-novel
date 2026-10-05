@@ -1,30 +1,22 @@
-import Database from "better-sqlite3";
-import path from "path";
-import fs from "fs";
+import { AppDatabase } from "./database-adapter";
+import bcrypt from "bcryptjs";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-}
+let databasePromise: Promise<AppDatabase> | null = null;
 
-const DB_PATH = path.join(DATA_DIR, "novel.db");
-
-// Singleton connection
-let dbInstance: Database.Database | null = null;
-
-export function getDatabase(): Database.Database {
-  if (!dbInstance) {
-    dbInstance = new Database(DB_PATH);
-    dbInstance.pragma("journal_mode = WAL");
-    dbInstance.pragma("foreign_keys = ON");
-    initTables(dbInstance);
+export function getDatabase(): Promise<AppDatabase> {
+  if (!databasePromise) {
+    databasePromise = (async () => {
+      const db = new AppDatabase();
+      await initTables(db);
+      return db;
+    })().catch(error => { databasePromise = null; throw error; });
   }
-  return dbInstance;
+  return databasePromise;
 }
 
-function initTables(db: Database.Database) {
+async function initTables(db: AppDatabase) {
   // 1. Users table
-  db.exec(`
+  await db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT UNIQUE NOT NULL,
@@ -63,24 +55,19 @@ function initTables(db: Database.Database) {
     CREATE INDEX IF NOT EXISTS idx_history_user ON user_reading_history(user_id);
   `);
 
-  // Ensure Admin account 'Ibuki' (password: 2003) exists
-  try {
-    const adminHash = "$2b$10$P6qZzznGENgvXBuNEy3J1u7ah.t7sQR4/iB0vqEczpeWfBNRq2tea";
-    const existingAdmin = db.prepare("SELECT id FROM users WHERE LOWER(username) = 'ibuki'").get() as { id: number } | undefined;
-    if (!existingAdmin) {
-      db.prepare(`
-        INSERT INTO users (username, email, password_hash, display_name, role)
-        VALUES ('Ibuki', 'ibuki@akita.com', ?, 'Ibuki (Admin)', 'admin')
-      `).run(adminHash);
-    } else {
-      db.prepare(`
-        UPDATE users 
-        SET role = 'admin', password_hash = ?
-        WHERE id = ?
-      `).run(adminHash, existingAdmin.id);
+  await db.exec(`CREATE TABLE IF NOT EXISTS app_settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);`);
+  // Seed only from private environment configuration; never reset existing passwords.
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (adminPassword) {
+    if (adminPassword.length < 12 || Buffer.byteLength(adminPassword, "utf8") > 72) {
+      throw new Error("ADMIN_PASSWORD must be 12 characters or longer and at most 72 UTF-8 bytes");
     }
-  } catch (seedErr) {
-    console.error("Admin seed error:", seedErr);
+    const username = process.env.ADMIN_USERNAME || "Ibuki";
+    const exists = await db.prepare("SELECT id FROM users WHERE LOWER(username) = LOWER(?)").get(username);
+    if (!exists) {
+      await db.prepare(`INSERT OR IGNORE INTO users (username, email, password_hash, display_name, role)
+        VALUES (?, ?, ?, ?, 'admin')`).run(username, process.env.ADMIN_EMAIL || "admin@akita.local", await bcrypt.hash(adminPassword, 12), username);
+    }
   }
 }
 

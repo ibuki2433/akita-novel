@@ -6,12 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:admin": "node tests/admin.integration.mjs",
+    "migrate:members": "node --env-file=.env.local scripts/migrate-members.mjs"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.3.0"
   },
   "dependencies": {
+    "@libsql/client": "^0.18.0",
     "bcryptjs": "^3.0.3",
     "better-sqlite3": "^13.0.3",
     "gray-matter": "^4.0.3",

@@ -91,14 +91,14 @@ export default function Navbar() {
           )}
 
           {/* Add New Chapter Button - ONLY visible to Admin (Ibuki) */}
-          {!isLoading && isAuthenticated && (user?.role === "admin" || user?.username?.toLowerCase() === "ibuki") && (
+          {!isLoading && isAuthenticated && (user?.role === "admin") && (
             <Link
-              href="/publish"
+              href="/admin"
               className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-sm shadow-purple-600/25 transition-all hover:scale-[1.02]"
-              title="เพิ่มและอัปโหลดตอนใหม่ (แอดมิน Ibuki)"
+              title="รายชื่อสมาชิกและจัดการเว็บ"
             >
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">อัปเดตตอนใหม่ (Admin)</span>
+              <span className="hidden sm:inline">จัดการเว็บ (Admin)</span>
               <span className="sm:hidden">แอดมิน</span>
             </Link>
           )}

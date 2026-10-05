@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { identifier, password } = body;
 
-    if (!identifier || !password) {
+    if (typeof identifier !== "string" || typeof password !== "string" || !identifier || !password || identifier.length > 254 || Buffer.byteLength(password, "utf8") > 72) {
       return NextResponse.json(
         { error: "กรุณากรอกชื่อผู้ใช้หรืออีเมล และรหัสผ่าน" },
         { status: 400 }
@@ -15,10 +15,10 @@ export async function POST(request: NextRequest) {
     }
 
     const cleanIdentifier = identifier.trim().toLowerCase();
-    const db = getDatabase();
+    const db = await getDatabase();
 
     // Query user by username or email (case-insensitive)
-    const user = db
+    const user = await db
       .prepare("SELECT * FROM users WHERE LOWER(username) = ? OR LOWER(email) = ?")
       .get(cleanIdentifier, cleanIdentifier) as UserRow | undefined;
 
@@ -38,10 +38,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Update last login
-    db.prepare("UPDATE users SET last_login_at = CURRENT_TIMESTAMP WHERE id = ?").run(user.id);
+    await db.prepare("UPDATE users SET last_login_at = CURRENT_TIMESTAMP WHERE id = ?").run(user.id);
 
     const safeUser = toSafeUser(user);
-    const token = generateToken(safeUser);
+    const token = await generateToken(safeUser);
 
     const response = NextResponse.json({
       success: true,
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error("Login error:", error);
     return NextResponse.json(
-      { error: error?.message || "เกิดข้อผิดพลาดในการเข้าสู่ระบบ" },
+      { error: "เกิดข้อผิดพลาดในการเข้าสู่ระบบ กรุณาลองใหม่" },
       { status: 500 }
     );
   }

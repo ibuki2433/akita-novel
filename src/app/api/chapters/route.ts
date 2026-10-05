@@ -9,7 +9,7 @@ const CHAPTERS_DIRECTORY = path.join(process.cwd(), "content", "chapters");
 export async function POST(request: NextRequest) {
   try {
     // Authorization Check: Only Admin (Ibuki) can publish/upload chapters
-    const currentUser = getSessionUser();
+    const currentUser = await getSessionUser();
     if (!currentUser) {
       return NextResponse.json(
         {
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const isAdmin = currentUser.role === "admin" || currentUser.username.toLowerCase() === "ibuki";
+    const isAdmin = currentUser.role === "admin";
     if (!isAdmin) {
       return NextResponse.json(
         {

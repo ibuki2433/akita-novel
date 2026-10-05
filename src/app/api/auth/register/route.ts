@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { username, email, password, displayName } = body;
 
-    if (!username || !email || !password) {
+    if (typeof username !== "string" || typeof email !== "string" || typeof password !== "string" || !username || !email || !password || (displayName !== undefined && typeof displayName !== "string")) {
       return NextResponse.json(
         { error: "กรุณากรอกข้อมูลให้ครบถ้วน (ชื่อผู้ใช้, อีเมล, รหัสผ่าน)" },
         { status: 400 }
@@ -17,6 +17,10 @@ export async function POST(request: NextRequest) {
     const cleanUsername = username.trim().toLowerCase();
     const cleanEmail = email.trim().toLowerCase();
     const cleanDisplayName = displayName?.trim() || username.trim();
+
+    if (cleanUsername.length > 50 || cleanEmail.length > 254 || cleanDisplayName.length > 100 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail) || Buffer.byteLength(password, "utf8") > 72) {
+      return NextResponse.json({ error: "กรุณาตรวจสอบชื่อ อีเมล และความยาวรหัสผ่าน" }, { status: 400 });
+    }
 
     if (cleanUsername.length < 3) {
       return NextResponse.json(
@@ -32,11 +36,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const db = getDatabase();
+    const db = await getDatabase();
 
     // Check existing username
-    const existingUsername = db
-      .prepare("SELECT id FROM users WHERE username = ?")
+    const existingUsername = await db
+      .prepare("SELECT id FROM users WHERE LOWER(username) = ?")
       .get(cleanUsername);
     if (existingUsername) {
       return NextResponse.json(
@@ -46,8 +50,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Check existing email
-    const existingEmail = db
-      .prepare("SELECT id FROM users WHERE email = ?")
+    const existingEmail = await db
+      .prepare("SELECT id FROM users WHERE LOWER(email) = ?")
       .get(cleanEmail);
     if (existingEmail) {
       return NextResponse.json(
@@ -64,14 +68,14 @@ export async function POST(request: NextRequest) {
       INSERT INTO users (username, email, password_hash, display_name, role)
       VALUES (?, ?, ?, ?, 'reader')
     `);
-    const result = insert.run(cleanUsername, cleanEmail, passwordHash, cleanDisplayName);
+    const result = await insert.run(cleanUsername, cleanEmail, passwordHash, cleanDisplayName);
 
-    const newUser = db
+    const newUser = await db
       .prepare("SELECT * FROM users WHERE id = ?")
       .get(result.lastInsertRowid) as UserRow;
 
     const safeUser = toSafeUser(newUser);
-    const token = generateToken(safeUser);
+    const token = await generateToken(safeUser);
 
     const response = NextResponse.json({
       success: true,
@@ -91,7 +95,7 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error("Register error:", error);
     return NextResponse.json(
-      { error: error?.message || "เกิดข้อผิดพลาดในการสมัครสมาชิก" },
+      { error: "เกิดข้อผิดพลาดในการสมัครสมาชิก กรุณาลองใหม่" },
       { status: 500 }
     );
   }

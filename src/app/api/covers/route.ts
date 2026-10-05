@@ -19,7 +19,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const user = getSessionUser();
+    const user = await getSessionUser();
     if (!user) {
       return NextResponse.json(
         { error: "กรุณาเข้าสู่ระบบด้วยบัญชีแอดมิน (Admin: Ibuki) ก่อนเปลี่ยนรูปภาพปก" },
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const isAdmin = user.role === "admin" || user.username.toLowerCase() === "ibuki";
+    const isAdmin = user.role === "admin";
     if (!isAdmin) {
       return NextResponse.json(
         { error: "สิทธิ์ไม่เพียงพอ: เฉพาะแอดมิน Ibuki เท่านั้นที่สามารถเปลี่ยนรูปภาพปกได้" },
@@ -91,12 +91,12 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const user = getSessionUser();
+    const user = await getSessionUser();
     if (!user) {
       return NextResponse.json({ error: "กรุณาเข้าสู่ระบบก่อน" }, { status: 401 });
     }
 
-    const isAdmin = user.role === "admin" || user.username.toLowerCase() === "ibuki";
+    const isAdmin = user.role === "admin";
     if (!isAdmin) {
       return NextResponse.json({ error: "เฉพาะแอดมิน Ibuki เท่านั้นที่สามารถลบรูปปกได้" }, { status: 403 });
     }
