@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #f8fafc;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --accent: #3b82f6;
+}
+
+html.dark {
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --accent: #60a5fa;
+}
+
+html.theme-sepia {
+  --bg-primary: #fbf0d9;
+  --bg-card: #f4e4bf;
+  --text-primary: #433422;
+  --text-muted: #7c6850;
+  --border-color: #ebd09b;
+  --accent: #b45309;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  min-height: 100vh;
+}
+
+/* Custom Reader Styles */
+.reader-body {
+  word-break: break-word;
+  line-break: strict;
+}
+
+.reader-body p {
+  margin-bottom: 1.5em;
+  text-indent: 2em;
+  text-align: justify;
+}
+
+/* Speech Highlights matching character colors */
+.reader-body p.speech-wrap,
+p.speech-wrap {
+  text-indent: 0 !important;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+  text-align: left !important;
+}
+
+.speech-bubble {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.45rem;
+  font-weight: 500;
+  line-height: 1.65;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  max-width: 100%;
+  word-break: break-word;
+  letter-spacing: 0.01em;
+}
+
+/* ========================================================
+   22 CHARACTERS COLOR PALETTE (ตรงตามที่กำหนดทั้งหมด)
+   ======================================================== */
+
+/* 1. อิสึกิ : ฟ้า */
+.speech-itsuki {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+/* 2. ยูโตะ : ส้ม */
+.speech-yuto {
+  background-color: #ea580c !important;
+  color: #ffffff !important;
+}
+
+/* 3. ไอร่า : เขียว */
+.speech-aira {
+  background-color: #16a34a !important;
+  color: #ffffff !important;
+}
+
+/* 4. ฮิซากิ : ทอง */
+.speech-hisaki {
+  background-color: #d97706 !important;
+  color: #ffffff !important;
+}
+
+/* 5. อาคิระ : ฟ้าอ่อน (นัยน์ตาสีฟ้าใส) */
+.speech-akira {
+  background-color: #38bdf8 !important;
+  color: #082f49 !important;
+  font-weight: 600;
+}
+html.dark .speech-akira {
+  background-color: #0284c7 !important;
+  color: #f0f9ff !important;
+}
+html.theme-sepia .speech-akira {
+  background-color: #38bdf8 !important;
+  color: #0c4a6e !important;
+}
+
+/* 6. อิซานา : ฟ้า */
+.speech-izana {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* 7. ซาเอกิ : เขียวแก่ */
+.speech-saeki {
+  background-color: #14532d !important;
+  color: #f0fdf4 !important;
+}
+
+/* 8. คายะ : แดง */
+.speech-kaya {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+/* 9. เซริ : ม่วงเข้ม */
+.speech-seri {
+  background-color: #581c87 !important;
+  color: #faf5ff !important;
+}
+
+/* 10. คุโรยะ : ฟ้า */
+.speech-kuroya {
+  background-color: #0369a1 !important;
+  color: #ffffff !important;
+}
+
+/* 11. โทริ / ลุงโทริ : น้ำเงิน */
+.speech-tori {
+  background-color: #1e3a8a !important;
+  color: #ffffff !important;
+}
+
+/* 12. คานาเมะ : แดงเลือดหมู */
+.speech-kaname {
+  background-color: #881337 !important;
+  color: #fff1f2 !important;
+}
+
+/* 13. มิโคโตะ : แดง */
+.speech-mikoto {
+  background-color: #b91c1c !important;
+  color: #ffffff !important;
+}
+
+/* 14. เซียงเจียว : ทอง */
+.speech-xiangjiao {
+  background-color: #b45309 !important;
+  color: #ffffff !important;
+}
+
+/* 15. หลิงโหว : เขียวอ่อน */
+.speech-linghou {
+  background-color: #65a30d !important;
+  color: #ffffff !important;
+}
+
+/* 16. อาชิ : ชมพู */
+.speech-ashi {
+  background-color: #db2777 !important;
+  color: #ffffff !important;
+}
+
+/* 17. อิบุกิ : ม่วง */
+.speech-ibuki {
+  background-color: #9333ea !important;
+  color: #ffffff !important;
+}
+
+/* 18. ดรีม : ฟ้าอมม่วงพาสเทล / ชวนฝัน */
+.speech-dream {
+  background-color: #6366f1 !important;
+  color: #ffffff !important;
+}
+
+/* 19. ริโนะ : ดำม่วง */
+.speech-rino {
+  background-color: #2e1065 !important;
+  color: #f5f3ff !important;
+  border: 1px solid #7c3aed;
+}
+
+/* 20. ฮิโนะ : เขียวมรกต */
+.speech-hino {
+  background-color: #059669 !important;
+  color: #ffffff !important;
+}
+
+/* 21. มิโอะ : ม่วงดำ */
+.speech-mio {
+  background-color: #3b0764 !important;
+  color: #fdf4ff !important;
+  border: 1px solid #9333ea;
+}
+
+/* 22. แบล็คเคน : แดง */
+.speech-blackken {
+  background-color: #991b1b !important;
+  color: #ffffff !important;
+}
+
+/* ตัวละครเสริม / ร่วมฉาก */
+/* ไอริส: สีน้ำเงิน */
+.speech-iris {
+  background-color: #1d4ed8 !important;
+  color: #ffffff !important;
+}
+
+/* เซน่อน / ชายหนุ่มปริศนา: สีฟ้าอมเขียว / Teal */
+.speech-xenon {
+  background-color: #0891b2 !important;
+  color: #ffffff !important;
+}
+
+/* ยูรางิ / หญิงสาว: สีม่วง */
+.speech-yuragi {
+  background-color: #7e22ce !important;
+  color: #ffffff !important;
+}
+
+/* ลุงผู้ว่าจ้าง / ลุงเจ้าของร้าน: สีแดงเลือดหมู */
+.speech-contractor {
+  background-color: #991b1b !important;
+  color: #ffffff !important;
+}
+
+/* ผู้ช่วย / คนขับรถ: สีชมพู */
+.speech-assistant {
+  background-color: #db2777 !important;
+  color: #ffffff !important;
+}
+
+/* เดียร์ / อาคิตะกลายพันธุ์: สีเทาดำเข้ม */
+.speech-deer {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* เก็งริว / เก็นริว: สีดำเทา (Dark Gray / Charcoal) */
+.speech-genryu {
+  background-color: #27272a !important;
+  color: #f4f4f5 !important;
+  border: 1px solid #52525b;
+}
+
+/* เฟีย: สีส้มอำพันอบอุ่น */
+.speech-fia {
+  background-color: #b45309 !important;
+  color: #fef3c7 !important;
+  border: 1px solid #d97706;
+}
+
+/* เงาปริศนา / ผู้ใช้อาคิตะปริศนา: สีดำเทาลึกลับ */
+.speech-shadow {
+  background-color: #18181b !important;
+  color: #e4e4e7 !important;
+  border: 1px solid #3f3f46;
+}
+
+/* ชายหนุ่ม / ไคโตะ: สีเทาดำ */
+.speech-kaito {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+}
+
+/* รปภ. / คุโรฮะ: สีกรมท่า */
+.speech-guard {
+  background-color: #312e81 !important;
+  color: #ffffff !important;
+}
+
+/* คนแถวนั้น / นักข่าว: สีเทากลาง */
+.speech-crowd {
+  background-color: #4b5563 !important;
+  color: #ffffff !important;
+}
+
+.reader-body h1, .reader-body h2, .reader-body h3 {
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  text-indent: 0;
+}
+
+.reader-body h1 { font-size: 1.75em; }
+.reader-body h2 { font-size: 1.4em; }
+.reader-body h3 { font-size: 1.2em; }
+
+.reader-body strong {
+  font-weight: 700;
+  color: inherit;
+}
+
+.reader-body em {
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.reader-body blockquote {
+  border-left: 4px solid var(--accent);
+  padding-left: 1rem;
+  margin: 1.25rem 0;
+  opacity: 0.85;
+  font-style: italic;
+  text-indent: 0;
+}
+
+.reader-body hr {
+  border: 0;
+  height: 1px;
+  background: var(--border-color);
+  margin: 2rem 0;
+}
+
+/* Scrollbar polish */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 150, 150, 0.5);
+}
