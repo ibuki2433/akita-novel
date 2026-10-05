@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { UserPlus, User, Mail, Lock, Eye, EyeOff, AlertCircle, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-import Navbar from "@/components/Navbar";
+import Navbar from "../../components/Navbar";
 
 export default function RegisterPage() {
   const router = useRouter();

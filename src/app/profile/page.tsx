@@ -16,7 +16,7 @@ import {
   Layers,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-import Navbar from "@/components/Navbar";
+import Navbar from "../../components/Navbar";
 
 interface BookmarkItem {
   id: number;

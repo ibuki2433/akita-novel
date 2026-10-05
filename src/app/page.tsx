@@ -1,5 +1,5 @@
-import Navbar from "@/components/Navbar";
-import NovelShowcase from "@/components/NovelShowcase";
+import Navbar from "../components/Navbar";
+import NovelShowcase from "../components/NovelShowcase";
 import { getVolumes, getAllChapters } from "@/lib/novel";
 
 export default function HomePage() {

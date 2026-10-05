@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LogIn, User, Lock, Eye, EyeOff, AlertCircle, ArrowLeft, BookOpen, Sparkles } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-import Navbar from "@/components/Navbar";
+import Navbar from "../../components/Navbar";
 
 export default function LoginPage() {
   const router = useRouter();

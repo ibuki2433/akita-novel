@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllChapters, getChapterBySlug } from "@/lib/novel";
-import ReaderView from "@/components/ReaderView";
+import ReaderView from "../../../components/ReaderView";
 
 interface PageProps {
   params: {
